@@ -1,0 +1,83 @@
+# Python cache files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+.pytest_cache/
+
+# Virtual environments
+venv/
+env/
+ENV/
+.venv
+.env
+
+# IDE files
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Testing
+.coverage
+.pytest_cache/
+htmlcov/
+.tox/
+coverage.xml
+
+# Documentation
+docs/
+*.md
+
+# Git
+.git/
+.gitignore
+
+# Docker files (we're building)
+Dockerfile*
+docker-compose*.yml
+.dockerignore
+
+# Development files
+.env.local
+.env.development
+.env.test
+
+# Backup files
+*.bak
+*.tmp
+
+# Database files
+*.db
+*.sqlite3
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# Jupyter notebooks
+*.ipynb
+.ipynb_checkpoints/
+
+# Local configuration
+config/local.py
+local_settings.py
+
+# Ignore any other temporary files
+*.tmp
+*.log
