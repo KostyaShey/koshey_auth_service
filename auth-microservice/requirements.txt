@@ -18,3 +18,15 @@ pytest-flask==1.3.0
 requests==2.31.0
 celery==5.3.4
 gunicorn==21.2.0
+
+# Additional packages for monitoring and security
+psutil==5.9.6
+PyJWT==2.8.0
+passlib==1.7.4
+argon2-cffi==23.1.0
+structlog==23.2.0
+sentry-sdk[flask]==1.38.0
+python-dateutil==2.8.2
+pytz==2023.3
+click==8.1.7
+coverage==4.1.0

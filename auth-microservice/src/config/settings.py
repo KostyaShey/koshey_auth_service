@@ -20,6 +20,53 @@ JWT_PUBLIC_KEY = os.getenv('JWT_PUBLIC_KEY', '')
 if not JWT_PRIVATE_KEY or not JWT_PUBLIC_KEY:
     JWT_ALGORITHM = 'HS256'
 
+# OAuth2-like Configuration
+OAUTH2_ENABLED = os.getenv('OAUTH2_ENABLED', 'true').lower() == 'true'
+OAUTH2_ACCESS_TOKEN_EXPIRES = timedelta(seconds=int(os.getenv('OAUTH2_ACCESS_TOKEN_EXPIRES', 900)))
+OAUTH2_REFRESH_TOKEN_EXPIRES = timedelta(seconds=int(os.getenv('OAUTH2_REFRESH_TOKEN_EXPIRES', 604800)))
+OAUTH2_AUTHORIZATION_CODE_EXPIRES = timedelta(seconds=int(os.getenv('OAUTH2_AUTHORIZATION_CODE_EXPIRES', 600)))
+
+# OAuth2 Client Credentials
+WEBAPP_CLIENT_SECRET = os.getenv('WEBAPP_CLIENT_SECRET', 'webapp-client-secret-change-me')
+API_CLIENT_SECRET = os.getenv('API_CLIENT_SECRET', 'api-client-secret-change-me')
+
+# OAuth2 Scopes
+OAUTH2_SCOPES = {
+    'read': 'Read access to user data',
+    'write': 'Write access to user data', 
+    'profile': 'Access to user profile information',
+    'email': 'Access to user email address',
+    'admin': 'Administrative access'
+}
+
+# Supported OAuth2 Grant Types
+OAUTH2_GRANT_TYPES = [
+    'authorization_code',
+    'refresh_token',
+    'client_credentials',
+    'password'  # Only for trusted clients
+]
+
+# OAuth2 Clients Configuration
+OAUTH2_CLIENTS = {
+    'webapp_client': {
+        'client_secret': WEBAPP_CLIENT_SECRET,
+        'grant_types': ['authorization_code', 'refresh_token', 'password'],
+        'scopes': ['read', 'write', 'profile', 'email'],
+        'redirect_uris': ['http://localhost:3000/callback', 'http://localhost:3001/callback']
+    },
+    'api_client': {
+        'client_secret': API_CLIENT_SECRET,
+        'grant_types': ['client_credentials'],
+        'scopes': ['read', 'write'],
+        'redirect_uris': []
+    }
+}
+
+# Token Introspection and Revocation
+TOKEN_INTROSPECTION_ENABLED = os.getenv('TOKEN_INTROSPECTION_ENABLED', 'true').lower() == 'true'
+TOKEN_REVOCATION_ENABLED = os.getenv('TOKEN_REVOCATION_ENABLED', 'true').lower() == 'true'
+
 # Email configuration
 MAIL_SERVER = os.getenv('MAIL_SERVER', 'smtp.gmail.com')
 MAIL_PORT = int(os.getenv('MAIL_PORT', 587))

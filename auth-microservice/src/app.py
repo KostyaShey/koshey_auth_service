@@ -61,9 +61,11 @@ def create_app(config_name='default'):
     # Register blueprints
     from routes.auth import auth_bp
     from routes.users import users_bp
+    from routes.oauth import oauth_bp
     
     app.register_blueprint(auth_bp, url_prefix='/auth')
     app.register_blueprint(users_bp, url_prefix='/users')
+    app.register_blueprint(oauth_bp, url_prefix='/oauth')
     
     # Global error handlers
     @app.errorhandler(400)
@@ -162,8 +164,16 @@ def create_app(config_name='default'):
             'endpoints': {
                 'auth': '/auth',
                 'users': '/users',
+                'oauth': '/oauth',
                 'health': '/health',
                 'metrics': '/metrics'
+            },
+            'oauth_endpoints': {
+                'token': '/oauth/token',
+                'introspect': '/oauth/introspect',
+                'revoke': '/oauth/revoke',
+                'authorize': '/oauth/authorize',
+                'clients': '/oauth/clients'
             },
             'documentation': '/docs'  # Future: Add Swagger/OpenAPI docs
         }), 200
