@@ -46,6 +46,12 @@ A production-ready, secure authentication microservice built with Flask, support
 - Redis 6+
 - Docker & Docker Compose (for containerized deployment)
 
+**Note**: If you need to use `sudo` with Docker commands, you can add your user to the docker group:
+```bash
+sudo usermod -aG docker $USER
+# Log out and log back in for changes to take effect
+```
+
 ## 🛠️ Quick Start
 
 ### 1. Clone and Setup
@@ -86,8 +92,9 @@ nano .env
 ### 4. Database Setup
 
 ```bash
-# Start PostgreSQL and Redis
-docker-compose up -d postgres redis
+# Start PostgreSQL and Redis (note: service names are 'db' and 'redis')
+cd auth-microservice
+sudo docker compose up -d db redis
 
 # Initialize database
 flask db init
@@ -114,7 +121,7 @@ gunicorn -w 4 -b 0.0.0.0:5000 "src.app:create_app()"
 cd auth-microservice
 
 # Build and start all services
-docker-compose up -d
+sudo docker compose up -d
 
 # Check health
 curl http://localhost:5000/health
@@ -318,10 +325,10 @@ python scripts/monitoring.py --create-config
 cd auth-microservice
 
 # View application logs
-docker-compose logs -f app
+sudo docker compose logs -f auth-service
 
 # View all logs
-docker-compose logs -f
+sudo docker compose logs -f
 
 # Log files location
 ls logs/
@@ -559,19 +566,19 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 1. **Database Connection Failed**
    ```bash
    # Check PostgreSQL status
-   docker-compose ps postgres
+   sudo docker compose ps db
    
    # View database logs
-   docker-compose logs postgres
+   sudo docker compose logs db
    ```
 
 2. **Redis Connection Failed**
    ```bash
    # Check Redis status
-   docker-compose ps redis
+   sudo docker compose ps redis
    
    # Test Redis connection
-   redis-cli ping
+   sudo docker compose exec redis redis-cli ping
    ```
 
 3. **JWT Key Errors**
