@@ -112,7 +112,7 @@ def create_app(config_name='default'):
         """Health check endpoint for monitoring"""
         try:
             # Check database connection
-            db.session.execute('SELECT 1')
+            db.session.execute(db.text('SELECT 1'))
             db_status = 'healthy'
         except Exception:
             db_status = 'unhealthy'
