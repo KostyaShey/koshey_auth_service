@@ -13,7 +13,7 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 # Configuration
-PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+PROJECT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 DEPLOYMENT_ENV="${DEPLOYMENT_ENV:-production}"
 DOCKER_REGISTRY="${DOCKER_REGISTRY:-}"
 IMAGE_TAG="${IMAGE_TAG:-latest}"
@@ -93,16 +93,39 @@ generate_secrets() {
     # Generate secrets if they're placeholder values
     local secret_key=$(openssl rand -hex 32)
     local jwt_secret=$(openssl rand -hex 32)
-    local postgres_password=$(openssl rand -base64 32 | tr -d "=+/" | cut -c1-25)
-    local redis_password=$(openssl rand -base64 32 | tr -d "=+/" | cut -c1-25)
+    local webapp_client_secret=$(openssl rand -base64 32 | tr -d "=+/" | cut -c1-25)
+    local api_client_secret=$(openssl rand -base64 32 | tr -d "=+/" | cut -c1-25)
     
-    # Update .env file with secure values
+    # Update .env file with secure values (excluding JWT keys for now)
     sed -i.backup \
-        -e "s/your-super-secret-key-here/$secret_key/g" \
-        -e "s/your-jwt-secret-key-here/$jwt_secret/g" \
-        -e "s/your-postgres-password/$postgres_password/g" \
-        -e "s/your-redis-password/$redis_password/g" \
+        -e "s/your-super-secret-key-change-in-production-use-64-chars-minimum/$secret_key/g" \
+        -e "s/your-jwt-secret-key-change-in-production-use-64-chars-minimum/$jwt_secret/g" \
+        -e "s/your-webapp-client-secret-32-chars-minimum/$webapp_client_secret/g" \
+        -e "s/your-api-client-secret-32-chars-minimum/$api_client_secret/g" \
+        -e "s/your-email@gmail.com/admin@yourcompany.com/g" \
+        -e "s/your-app-password/$(openssl rand -base64 16)/g" \
         "$env_file"
+    
+    # Update JWT keys if they exist and are currently empty
+    if [[ -f "$PROJECT_DIR/keys/jwt_private.pem" ]] && grep -q "^JWT_PRIVATE_KEY=$" "$env_file"; then
+        log "Updating JWT private key in .env file..."
+        # Use a temporary file to avoid sed issues with special characters
+        local temp_private=$(mktemp)
+        cat "$PROJECT_DIR/keys/jwt_private.pem" | base64 -w 0 > "$temp_private"
+        local jwt_private_b64=$(cat "$temp_private")
+        sed -i "s|^JWT_PRIVATE_KEY=$|JWT_PRIVATE_KEY=$jwt_private_b64|" "$env_file"
+        rm "$temp_private"
+    fi
+    
+    if [[ -f "$PROJECT_DIR/keys/jwt_public.pem" ]] && grep -q "^JWT_PUBLIC_KEY=$" "$env_file"; then
+        log "Updating JWT public key in .env file..."
+        # Use a temporary file to avoid sed issues with special characters
+        local temp_public=$(mktemp)
+        cat "$PROJECT_DIR/keys/jwt_public.pem" | base64 -w 0 > "$temp_public"
+        local jwt_public_b64=$(cat "$temp_public")
+        sed -i "s|^JWT_PUBLIC_KEY=$|JWT_PUBLIC_KEY=$jwt_public_b64|" "$env_file"
+        rm "$temp_public"
+    fi
     
     # Set secure permissions
     chmod 600 "$env_file"
@@ -232,7 +255,7 @@ validate_config() {
     fi
     
     # Check for placeholder values
-    if grep -q "your-.*-here" "$env_file"; then
+    if grep -q "your-.*-minimum\|your-.*@.*\.com\|your-app-password" "$env_file"; then
         error "Found placeholder values in .env file. Run with --generate-secrets first."
         exit 1
     fi
