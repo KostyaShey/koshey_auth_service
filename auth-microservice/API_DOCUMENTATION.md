@@ -50,7 +50,8 @@ Register a new user account.
   "username": "johndoe",
   "email": "john@example.com",
   "password": "SecurePassword123!",
-  "full_name": "John Doe"
+  "name": "John",
+  "surname": "Doe"
 }
 ```
 
@@ -62,7 +63,8 @@ Register a new user account.
     "id": 1,
     "username": "johndoe",
     "email": "john@example.com",
-    "full_name": "John Doe",
+    "name": "John",
+    "surname": "Doe",
     "account_activation_status": false,
     "created_at": "2024-01-15T10:30:00Z"
   }
@@ -105,7 +107,8 @@ Authenticate user and receive JWT tokens.
     "id": 1,
     "username": "johndoe",
     "email": "john@example.com",
-    "full_name": "John Doe"
+    "name": "John",
+    "surname": "Doe"
   }
 }
 ```
@@ -246,7 +249,8 @@ Get current authenticated user information.
   "id": 1,
   "username": "johndoe",
   "email": "john@example.com",
-  "full_name": "John Doe",
+  "name": "John",
+  "surname": "Doe",
   "account_activation_status": true,
   "created_at": "2024-01-15T10:30:00Z",
   "last_login_at": "2024-01-16T14:20:00Z"
@@ -264,7 +268,8 @@ Update current user profile.
 **Request Body:**
 ```json
 {
-  "full_name": "John Smith",
+  "name": "John",
+  "surname": "Smith",
   "email": "johnsmith@example.com"
 }
 ```
@@ -277,7 +282,8 @@ Update current user profile.
     "id": 1,
     "username": "johndoe",
     "email": "johnsmith@example.com",
-    "full_name": "John Smith",
+    "name": "John",
+    "surname": "Smith",
     "updated_at": "2024-01-16T15:30:00Z"
   }
 }
@@ -705,7 +711,8 @@ curl -X POST http://localhost:5000/auth/register \
     "username": "testuser",
     "email": "test@example.com",
     "password": "SecurePassword123!",
-    "full_name": "Test User"
+    "name": "Test",
+    "surname": "User"
   }'
 ```
 

@@ -27,9 +27,10 @@ class AuthMicroserviceIntegrationTests(unittest.TestCase):
         cls.base_url = os.getenv('TEST_BASE_URL', 'http://localhost:5000')
         cls.test_user_data = {
             'username': f'testuser_{secrets.token_hex(8)}',
-            'email': f'test_{secrets.token_hex(8)}@example.com',
-            'password': 'TestPassword123!',
-            'full_name': 'Test User'
+            'email': f'test_{secrets.token_hex(8)}@gmail.com',
+            'password': 'SecureP@ssw0rd!',
+            'name': 'Test',
+            'surname': 'User'
         }
         cls.oauth_client = None
         cls.user_tokens = {}
@@ -131,6 +132,12 @@ class AuthMicroserviceIntegrationTests(unittest.TestCase):
             json=self.test_user_data
         )
         
+        # Debug: Print response details if not successful
+        if response.status_code != 201:
+            print(f"❌ Registration failed with status {response.status_code}")
+            print(f"Response: {response.text}")
+            print(f"Test data: {self.test_user_data}")
+        
         self.assertEqual(response.status_code, 201)
         
         data = response.json()
@@ -140,7 +147,8 @@ class AuthMicroserviceIntegrationTests(unittest.TestCase):
         user = data['user']
         self.assertEqual(user['username'], self.test_user_data['username'])
         self.assertEqual(user['email'], self.test_user_data['email'])
-        self.assertEqual(user['full_name'], self.test_user_data['full_name'])
+        self.assertEqual(user['name'], self.test_user_data['name'])
+        self.assertEqual(user['surname'], self.test_user_data['surname'])
         
         print("✅ User registration successful")
     

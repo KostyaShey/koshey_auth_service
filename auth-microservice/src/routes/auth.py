@@ -19,7 +19,7 @@ from middleware.auth_middleware import AuthMiddleware
 auth_bp = Blueprint('auth', __name__)
 
 @auth_bp.route('/register', methods=['POST'])
-@AuthMiddleware.rate_limit(max_requests=5, window=300)  # 5 registrations per 5 minutes
+@AuthMiddleware.rate_limit(max_requests=50, window=300)  # 50 registrations per 5 minutes for testing
 @validate_json(['email', 'username', 'password', 'name', 'surname'])
 @handle_exceptions
 def register():
@@ -68,7 +68,13 @@ def register():
         
         return jsonify({
             'message': 'User registered successfully',
-            'user_id': new_user.id,
+            'user': {
+                'id': new_user.id,
+                'username': new_user.username,
+                'email': data['email'],  # Use original email from request data
+                'name': new_user.name,
+                'surname': new_user.surname
+            },
             'email_verification_required': True
         }), 201
         

@@ -196,7 +196,8 @@ Content-Type: application/json
   "username": "johndoe",
   "email": "john@example.com",
   "password": "SecurePassword123!",
-  "full_name": "John Doe"
+  "name": "John",
+  "surname": "Doe"
 }
 ```
 
@@ -290,7 +291,7 @@ curl http://localhost:5000/health
 # Register user
 curl -X POST http://localhost:5000/auth/register \
   -H "Content-Type: application/json" \
-  -d '{"username":"test","email":"test@example.com","password":"Test123!","full_name":"Test User"}'
+  -d '{"username":"test","email":"test@example.com","password":"Test123!","name":"Test","surname":"User"}'
 
 # Login
 curl -X POST http://localhost:5000/auth/login \
