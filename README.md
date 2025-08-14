@@ -118,6 +118,11 @@ gunicorn -w 4 -b 0.0.0.0:5000 "src.app:create_app()"
 sudo docker compose up -d db redis
 ```
 
+**Development Features**:
+- ✅ **Debug mode enabled** - Auto-reload on code changes
+- ✅ **Interactive debugger** - Web-based debugger on errors
+- ✅ **Detailed error messages** - Full stack traces for debugging
+
 ## 🐳 Docker Deployment
 
 ### Quick Start with Docker Compose
