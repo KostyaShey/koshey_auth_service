@@ -52,13 +52,14 @@ A production-ready, secure authentication microservice built with Flask, support
 
 ```bash
 git clone <repository-url>
-cd auth_service/auth-microservice
+cd auth_service
 
 # Create virtual environment
 python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 # Install dependencies
+cd auth-microservice
 pip install -r requirements.txt
 ```
 
