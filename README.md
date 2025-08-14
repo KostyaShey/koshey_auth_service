@@ -446,7 +446,9 @@ server {
 
 ```
 auth_service/                   # Top-level directory
+├── .gitignore                 # Git ignore rules
 ├── README.md                  # This file
+├── venv/                      # Virtual environment (ignored by git)
 └── auth-microservice/         # Main application directory
     ├── src/                   # Application source code
     │   ├── app.py            # Main application factory
@@ -457,8 +459,9 @@ auth_service/                   # Top-level directory
     │   └── middleware/       # Custom middleware
     ├── tests/                # Test suite
     ├── scripts/              # Utility scripts
-    ├── keys/                 # JWT keys (generated)
-    ├── logs/                 # Application logs
+    ├── keys/                 # JWT keys (generated, ignored by git)
+    ├── logs/                 # Application logs (ignored by git)
+    ├── .env                  # Environment variables (ignored by git)
     ├── docker-compose.yml    # Docker services
     ├── Dockerfile           # Container definition
     ├── requirements.txt     # Python dependencies
