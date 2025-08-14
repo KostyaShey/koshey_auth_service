@@ -9,6 +9,10 @@ from flask_cors import CORS
 from flask_limiter import Limiter
 from flask_limiter.util import get_remote_address
 import redis
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Import configurations
 from config.settings import *
@@ -35,11 +39,11 @@ def create_app(config_name='default'):
     
     # Initialize rate limiter
     limiter = Limiter(
-        app,
         key_func=get_remote_address,
         default_limits=[RATELIMIT_DEFAULT],
         storage_uri=RATELIMIT_STORAGE_URL
     )
+    limiter.init_app(app)
     
     # Configure logging
     if not app.debug and not app.testing:

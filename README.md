@@ -96,10 +96,8 @@ nano .env
 cd auth-microservice
 sudo docker compose up -d db redis
 
-# Initialize database
-flask db init
-flask db migrate -m "Initial migration"
-flask db upgrade
+# Initialize database (uses the custom init script)
+python init_db.py
 ```
 
 ### 5. Run the Service
