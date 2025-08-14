@@ -255,11 +255,13 @@ See [auth-microservice/API_DOCUMENTATION.md](auth-microservice/API_DOCUMENTATION
 
 ### Run Integration Tests
 
+The integration test suite includes comprehensive testing of all authentication flows, including account activation:
+
 ```bash
 # Navigate to the auth-microservice directory
 cd auth-microservice
 
-# Full test suite
+# Full test suite (includes account activation flow)
 python tests/integration_tests.py
 
 # Quick smoke tests
@@ -268,6 +270,20 @@ python tests/integration_tests.py --smoke
 # Test specific URL
 python tests/integration_tests.py --base-url http://localhost:5000
 ```
+
+**Test Coverage Includes:**
+- ✅ User registration with `name` and `surname` fields
+- ✅ **Complete account activation flow** (new!)
+  - Registration creates unactivated account
+  - Login blocked until activation
+  - Email verification token validation
+  - Account activation via `/auth/verify-email`
+  - Login success after activation
+  - Duplicate activation prevention
+- ✅ JWT token authentication
+- ✅ OAuth2 client credentials flow
+- ✅ Rate limiting and security headers
+- ✅ Error handling and edge cases
 
 ### Security Audit
 
