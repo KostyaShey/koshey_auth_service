@@ -1,7 +1,14 @@
 import pytest
 import json
+import sys
+import os
+
+# Add src directory to path for imports
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..', 'src'))
+
 from app import create_app
-from models.user import db, User
+from database import db
+from models.user import User
 
 @pytest.fixture
 def app():

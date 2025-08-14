@@ -103,11 +103,19 @@ python init_db.py
 ### 5. Run the Service
 
 ```bash
-# Development
+# Development (recommended - uses improved startup script)
+python run_dev.py
+
+# Alternative: Direct app execution (requires db and redis services running)
 python src/app.py
 
 # Production
 gunicorn -w 4 -b 0.0.0.0:5000 "src.app:create_app()"
+```
+
+**Note**: Both development methods require PostgreSQL and Redis services to be running. Start them with:
+```bash
+sudo docker compose up -d db redis
 ```
 
 ## 🐳 Docker Deployment

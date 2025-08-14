@@ -1,7 +1,8 @@
 from functools import wraps
 from flask import request, jsonify, current_app
 from utils.token_utils import verify_token, is_user_tokens_revoked
-from models.user import User, db
+from database import db
+from models.user import User
 
 def token_required(f):
     """Decorator to require valid JWT token"""

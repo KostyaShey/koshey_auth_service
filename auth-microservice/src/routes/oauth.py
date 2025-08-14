@@ -3,7 +3,8 @@ from datetime import datetime, timedelta
 import secrets
 import base64
 
-from models.user import User, db
+from database import db
+from models.user import User
 from models.oauth2 import OAuth2Client, OAuth2AuthorizationCode, OAuth2Token
 from utils.token_utils import (
     create_access_token, create_refresh_token, create_client_credentials_token,

@@ -1,7 +1,8 @@
 from flask import Blueprint, request, jsonify, current_app
 from datetime import datetime
 
-from models.user import User, db
+from database import db
+from models.user import User
 from utils.validators import validate_user_registration_data, validate_name
 from utils.password_utils import validate_password_strength
 from utils.decorators import token_required, validate_json, handle_exceptions

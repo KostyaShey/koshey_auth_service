@@ -3,7 +3,8 @@ from datetime import datetime, timedelta
 import uuid
 import secrets
 
-from models.user import User, RefreshToken, db
+from database import db
+from models.user import User, RefreshToken
 from utils.password_utils import validate_password_strength
 from utils.validators import validate_user_registration_data
 from utils.token_utils import (

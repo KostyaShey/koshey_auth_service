@@ -1,11 +1,11 @@
 from datetime import datetime, timedelta
-from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, String, DateTime, Boolean, Integer, Text
 import uuid
 import hashlib
 import secrets
 
-db = SQLAlchemy()
+# Import shared db instance from database module
+from database import db
 
 class OAuth2Client(db.Model):
     __tablename__ = 'oauth2_clients'

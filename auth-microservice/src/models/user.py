@@ -1,12 +1,12 @@
 from datetime import datetime
-from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy import Column, Integer, String, DateTime, Boolean, Text
 from sqlalchemy.ext.hybrid import hybrid_property
 import bcrypt
 import hashlib
 import uuid
 
-db = SQLAlchemy()
+# Import shared db instance from database module
+from database import db
 
 class User(db.Model):
     __tablename__ = 'users'
