@@ -151,7 +151,7 @@ JWT_SECRET_KEY=your-jwt-secret-key
 JWT_ALGORITHM=RS256
 
 # Database
-DATABASE_URL=postgresql://user:password@localhost:5432/auth_db
+DATABASE_URL=postgresql://user:password@localhost:5433/auth_db
 
 # Redis
 REDIS_URL=redis://localhost:6379/0

@@ -662,7 +662,7 @@ TESTING=false
 PORT=5000
 
 # Database
-DATABASE_URL=postgresql://user:password@localhost:5432/auth_db
+DATABASE_URL=postgresql://user:password@localhost:5433/auth_db
 
 # Redis
 REDIS_URL=redis://localhost:6379/0

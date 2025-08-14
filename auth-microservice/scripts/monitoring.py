@@ -180,7 +180,7 @@ class ServiceMonitor:
             try:
                 connections = [
                     conn for conn in psutil.net_connections() 
-                    if conn.laddr.port in [5000, 5432, 6379]  # App, PostgreSQL, Redis
+                    if conn.laddr.port in [5000, 5433, 6379]  # App, PostgreSQL, Redis
                 ]
                 self.metrics['active_connections'] = len(connections)
             except (psutil.AccessDenied, AttributeError):
