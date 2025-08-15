@@ -47,7 +47,7 @@ def test_root_endpoint(client):
 def test_user_registration(client):
     """Test user registration."""
     user_data = {
-        'email': 'test@example.com',
+        'email': 'test@test.com',
         'username': 'testuser',
         'password': 'SecurePass123!',
         'name': 'Test',
@@ -60,13 +60,14 @@ def test_user_registration(client):
     
     assert response.status_code == 201
     data = json.loads(response.data)
-    assert 'user_id' in data
+    assert 'user' in data
+    assert 'id' in data['user']
     assert data['email_verification_required'] == True
 
 def test_password_validation(client):
     """Test password validation."""
     user_data = {
-        'email': 'test@example.com',
+        'email': 'test@test.com',
         'username': 'testuser',
         'password': 'weak',  # Weak password
         'name': 'Test',
@@ -84,7 +85,7 @@ def test_password_validation(client):
 def test_duplicate_user_registration(client):
     """Test duplicate user registration."""
     user_data = {
-        'email': 'test@example.com',
+        'email': 'test@test.com',
         'username': 'testuser',
         'password': 'SecurePass123!',
         'name': 'Test',
@@ -107,7 +108,7 @@ def test_login_unverified_user(client):
     """Test login with unverified user."""
     # Register user
     user_data = {
-        'email': 'test@example.com',
+        'email': 'test@test.com',
         'username': 'testuser',
         'password': 'SecurePass123!',
         'name': 'Test',
