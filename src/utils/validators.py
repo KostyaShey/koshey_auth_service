@@ -7,7 +7,7 @@ def validate_email_format(email: str) -> Tuple[bool, str]:
     """Validate email format"""
     try:
         validated_email = validate_email(email)
-        return True, validated_email.email
+        return True, validated_email.normalized
     except EmailNotValidError as e:
         return False, str(e)
 
