@@ -515,7 +515,7 @@ Check service health status.
 {
   "status": "healthy",
   "timestamp": "2024-01-16T15:30:00Z",
-  "service": "auth-microservice",
+  "service": "auth-service",
   "version": "1.0.0",
   "checks": {
     "database": "healthy",
@@ -745,7 +745,7 @@ curl -X POST http://localhost:5000/oauth/token \
 
 1. Build the image:
 ```bash
-docker build -t auth-microservice .
+docker build -t auth-service .
 ```
 
 2. Run with Docker Compose:

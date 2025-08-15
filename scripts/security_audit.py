@@ -353,7 +353,7 @@ class SecurityAuditor:
         report = {
             'audit_metadata': {
                 'timestamp': self.timestamp,
-                'service': 'auth-microservice',
+                'service': 'auth-service',
                 'version': '1.0.0',
                 'auditor': 'Security Audit Script'
             },

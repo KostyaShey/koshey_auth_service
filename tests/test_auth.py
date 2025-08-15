@@ -32,7 +32,7 @@ def test_health_check(client):
     response = client.get('/health')
     assert response.status_code == 200
     data = json.loads(response.data)
-    assert data['service'] == 'auth-microservice'
+    assert data['service'] == 'auth-service'
 
 def test_root_endpoint(client):
     """Test root endpoint."""

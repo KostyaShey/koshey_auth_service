@@ -130,7 +130,7 @@ def create_app(config_name='default'):
         return jsonify({
             'status': 'healthy' if status_code == 200 else 'unhealthy',
             'timestamp': datetime.utcnow().isoformat(),
-            'service': 'auth-microservice',
+            'service': 'auth-service',
             'version': '1.0.0',
             'checks': {
                 'database': db_status,

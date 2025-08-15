@@ -354,5 +354,5 @@ def health_check():
     return jsonify({
         'status': 'healthy',
         'timestamp': datetime.utcnow().isoformat(),
-        'service': 'auth-microservice'
+        'service': 'auth-service'
     }), 200

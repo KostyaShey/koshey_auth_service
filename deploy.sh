@@ -196,7 +196,7 @@ build_image() {
     cd "$PROJECT_DIR"
     
     # Build image
-    local image_name="auth-microservice"
+    local image_name="auth-service"
     local full_image_name="$image_name:$IMAGE_TAG"
     
     if [[ -n "$DOCKER_REGISTRY" ]]; then

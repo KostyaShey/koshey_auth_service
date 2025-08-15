@@ -65,7 +65,6 @@ python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 
 # Install dependencies
-cd auth-microservice
 pip install -r requirements.txt
 ```
 
@@ -93,7 +92,6 @@ nano .env
 
 ```bash
 # Start PostgreSQL and Redis (note: service names are 'db' and 'redis')
-cd auth-microservice
 sudo docker compose up -d db redis
 
 # Initialize database (uses the custom init script)
@@ -128,9 +126,6 @@ sudo docker compose up -d db redis
 ### Quick Start with Docker Compose
 
 ```bash
-# Navigate to the auth-microservice directory
-cd auth-microservice
-
 # Build and start all services
 sudo docker compose up -d
 
@@ -141,9 +136,6 @@ curl http://localhost:5000/health
 ### Secure Production Deployment
 
 ```bash
-# Navigate to the auth-microservice directory
-cd auth-microservice
-
 # Run secure deployment script
 ./deploy.sh deploy
 
@@ -249,7 +241,7 @@ Authorization: Basic <base64(client_id:client_secret)>
 token=ACCESS_TOKEN&token_type_hint=access_token
 ```
 
-See [auth-microservice/API_DOCUMENTATION.md](auth-microservice/API_DOCUMENTATION.md) for complete API reference.
+See [API_DOCUMENTATION.md](API_DOCUMENTATION.md) for complete API reference.
 
 ## 🧪 Testing
 
@@ -258,9 +250,6 @@ See [auth-microservice/API_DOCUMENTATION.md](auth-microservice/API_DOCUMENTATION
 The integration test suite includes comprehensive testing of all authentication flows, including account activation:
 
 ```bash
-# Navigate to the auth-microservice directory
-cd auth-microservice
-
 # Full test suite (includes account activation flow)
 python tests/integration_tests.py
 
@@ -288,9 +277,6 @@ python tests/integration_tests.py --base-url http://localhost:5000
 ### Security Audit
 
 ```bash
-# Navigate to the auth-microservice directory
-cd auth-microservice
-
 # Run security audit
 python scripts/security_audit.py
 
@@ -333,9 +319,6 @@ GET /
 ### Monitoring Script
 
 ```bash
-# Navigate to the auth-microservice directory
-cd auth-microservice
-
 # Run continuous monitoring
 python scripts/monitoring.py
 
@@ -349,9 +332,6 @@ python scripts/monitoring.py --create-config
 ### Log Management
 
 ```bash
-# Navigate to the auth-microservice directory
-cd auth-microservice
-
 # View application logs
 sudo docker compose logs -f auth-service
 
@@ -421,7 +401,7 @@ ls logs/
    ```bash
    # Clone repository
    git clone <repository-url>
-   cd auth_service/auth-microservice
+   cd auth_service
    
    # Set production environment
    export DEPLOYMENT_ENV=production
@@ -485,23 +465,22 @@ auth_service/                   # Top-level directory
 ├── .gitignore                 # Git ignore rules
 ├── README.md                  # This file
 ├── venv/                      # Virtual environment (ignored by git)
-└── auth-microservice/         # Main application directory
-    ├── src/                   # Application source code
-    │   ├── app.py            # Main application factory
-    │   ├── config/           # Configuration modules
-    │   ├── models/           # Database models
-    │   ├── routes/           # API route blueprints
-    │   ├── utils/            # Utility functions
-    │   └── middleware/       # Custom middleware
-    ├── tests/                # Test suite
-    ├── scripts/              # Utility scripts
-    ├── keys/                 # JWT keys (generated, ignored by git)
-    ├── logs/                 # Application logs (ignored by git)
-    ├── .env                  # Environment variables (ignored by git)
-    ├── docker-compose.yml    # Docker services
-    ├── Dockerfile           # Container definition
-    ├── requirements.txt     # Python dependencies
-    └── deploy.sh           # Deployment script
+├── src/                       # Application source code
+│   ├── app.py                # Main application factory
+│   ├── config/               # Configuration modules
+│   ├── models/               # Database models
+│   ├── routes/               # API route blueprints
+│   ├── utils/                # Utility functions
+│   └── middleware/           # Custom middleware
+├── tests/                    # Test suite
+├── scripts/                  # Utility scripts
+├── keys/                     # JWT keys (generated, ignored by git)
+├── logs/                     # Application logs (ignored by git)
+├── .env                      # Environment variables (ignored by git)
+├── docker-compose.yml        # Docker services
+├── Dockerfile               # Container definition
+├── requirements.txt         # Python dependencies
+└── deploy.sh               # Deployment script
 ```
 
 ### Adding New Features
@@ -620,10 +599,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ### Getting Help
 
-- Check the [auth-microservice/API_DOCUMENTATION.md](auth-microservice/API_DOCUMENTATION.md)
-- Review the [Security Guide](auth-microservice/SECURITY.md)
-- Run the security audit: `cd auth-microservice && python scripts/security_audit.py`
-- Check application logs: `cd auth-microservice && docker-compose logs app`
+- Check the [API_DOCUMENTATION.md](API_DOCUMENTATION.md)
+- Review the [Security Guide](SECURITY.md)
+- Run the security audit: `python scripts/security_audit.py`
+- Check application logs: `docker compose logs app`
 
 ### Performance Tuning
 
