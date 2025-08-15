@@ -13,6 +13,9 @@ from models.user import User
 @pytest.fixture
 def app():
     """Create and configure a new app instance for each test."""
+    import os
+    os.environ['TESTING'] = 'true'  # Set environment variable for testing
+    
     app = create_app('testing')
     app.config['TESTING'] = True
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'

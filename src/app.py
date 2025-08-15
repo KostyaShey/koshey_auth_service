@@ -30,6 +30,15 @@ def create_app(config_name='default'):
     # Load configuration
     app.config.from_object('config.settings')
     
+    # Override config for testing
+    if config_name == 'testing':
+        app.config['TESTING'] = True
+        app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///:memory:'
+        # Use in-memory storage for rate limiting during testing
+        app.config['RATELIMIT_STORAGE_URL'] = 'memory://'
+        # Remove PostgreSQL-specific engine options for SQLite
+        app.config['SQLALCHEMY_ENGINE_OPTIONS'] = {}
+    
     # Initialize extensions with app
     db.init_app(app)
     migrate.init_app(app, db)
@@ -38,11 +47,12 @@ def create_app(config_name='default'):
     # Initialize CORS
     CORS(app, origins=CORS_ORIGINS, supports_credentials=True)
     
-    # Initialize rate limiter
+    # Initialize rate limiter with appropriate storage
+    storage_uri = app.config.get('RATELIMIT_STORAGE_URL', RATELIMIT_STORAGE_URL)
     limiter = Limiter(
         key_func=get_remote_address,
         default_limits=[RATELIMIT_DEFAULT],
-        storage_uri=RATELIMIT_STORAGE_URL
+        storage_uri=storage_uri
     )
     limiter.init_app(app)
     
